@@ -1,9 +1,19 @@
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from info_manager.models import CountryInformation
 from info_manager.serializers import CountryInformationSerializer
+
+
+@api_view(['GET'])
+def welcome(request):
+    current_site = get_current_site(request).domain
+    absurl = 'https://' + current_site + '/api/v1/view/country-info-list'
+    return Response('HI, YOU ARE WELCOME! --> Browsable Route: %s' % absurl)
 
 
 @api_view(['GET',])
